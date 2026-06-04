@@ -1,0 +1,13 @@
+node_modules
+dist
+dist-ssr
+.output
+.vinxi
+.tanstack
+.workspace
+.nitro
+.git
+.gitignore
+*.log
+*.local
+*.tsbuildinfo
