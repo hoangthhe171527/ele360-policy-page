@@ -15,4 +15,4 @@ ENV PORT=3000
 COPY --from=build /app/dist ./dist
 COPY package.json ./
 EXPOSE 3000
-CMD ["bun", "run", "start"]
+CMD ["bun", "dist/server/index.mjs"]
