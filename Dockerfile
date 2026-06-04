@@ -1,18 +1,19 @@
-FROM oven/bun:1.3.13-alpine AS deps
-WORKDIR /app
-COPY package.json bun.lock bunfig.toml ./
-RUN bun install --frozen-lockfile
+FROM node:22-alpine
 
-FROM deps AS build
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
 COPY . .
-RUN bun run build
+ENV TANSTACK_START_NODE_DEPLOY=1
+RUN npm run build
+RUN npm prune --omit=dev
 
-FROM oven/bun:1.3.13-alpine AS runner
-WORKDIR /app
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
-ENV PORT=3000
-COPY --from=build /app/dist ./dist
-COPY package.json ./
-EXPOSE 3000
-CMD ["bun", "dist/server/index.mjs"]
+ENV PORT=8090
+
+EXPOSE 8090
+
+CMD ["npm", "start"]
