@@ -1,9 +1,10 @@
-FROM node:22-alpine
+FROM node:22-slim
 
 WORKDIR /app
 
 COPY package*.json ./
 RUN npm ci
+RUN npm install --include=optional --no-audit --no-fund
 
 COPY . .
 ENV TANSTACK_START_NODE_DEPLOY=1
