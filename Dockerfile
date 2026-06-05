@@ -21,4 +21,4 @@ ENV PORT=8090
 
 EXPOSE 8090
 
-CMD ["npm", "start"]
+CMD ["node", "dist/server/index.mjs"]
